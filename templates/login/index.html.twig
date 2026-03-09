@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdviseController!{% endblock %}
+{% block nav %}
+    <header class="shadow-sm" style="">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container py-2">
+                <a class="navbar-brand fw-bold text-white" href="{{ path("app_home_alt") }}">Budget Buddy</a>
+            </div>
+        </nav>
+    </header>
+{% endblock %}
+{% block body %}
+    <style>
+        body{
+            height: 100vh;
+            background: linear-gradient(135deg, #512da8 0%, #6a3fd5 60%, #8362ff 100%);
+        }
+
+
+
+    </style>
+    <div class="container-fluid " style="">
+        <div class="row d-flex justify-content-center align-items-start w-100 h-100" style="height: 900px">
+            <div class="col-md-12 text-center text-white">
+                <h1>Welkom Terug!</h1>
+                <h3>Inloggen</h3>
+            </div>
+            <div class="w-100"></div>
+            <form class="bg-white p-4 col-md-4 rounded-3" action="">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <div class="form-floating text-center">
+                    <a class="btn btn-primary" href="#">Inloggen</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}
+{% block footer %}{% endblock %}

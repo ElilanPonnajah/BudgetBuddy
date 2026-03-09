@@ -1,0 +1,192 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Homepagina{% endblock %}
+
+
+
+{% block body %}
+<section class="py-5" style="background: linear-gradient(135deg, #512da8 0%, #6a3fd5 60%, #8362ff 100%);">
+    <div class="container py-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6 text-white">
+                <span class="badge bg-light text-primary mb-3 fw-semibold">Welkom bij Budget Buddy</span>
+                <h1 class="display-5 fw-bold">Jouw partner voor slimme en zorgeloze financiën</h1>
+                <p class="lead opacity-75">
+                    Wij helpen je sparen, plannen en investeren met overzichtelijke dashboards,
+                    persoonlijk advies en heldere doelen. Zo houd jij de regie over iedere euro.
+                </p>
+                <div class="d-flex flex-wrap gap-3 mt-4">
+                    <a href="{{ path('app_savings') }}" class="btn btn-light text-primary fw-semibold px-4">Start met sparen</a>
+                    <a href="{{ path('app_advise') }}" class="btn btn-outline-light fw-semibold px-4">Vraag advies aan</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="bg-white rounded-4 shadow-lg p-4">
+                    <h2 class="h4 text-primary fw-semibold">Jouw maand in één oogopslag</h2>
+                    <p class="text-secondary mb-4">
+                        Bekijk realtime inkomsten en uitgaven, stel spaardoelen in en krijg tips om je budget te optimaliseren.
+                    </p>
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <div class="p-3 rounded-3 bg-light">
+                                <span class="text-primary fw-semibold">+12%</span>
+                                <p class="mb-0 text-secondary small">Gemiddelde spaargroei per gebruiker</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="p-3 rounded-3 bg-light">
+                                <span class="text-primary fw-semibold">4.8/5</span>
+                                <p class="mb-0 text-secondary small">Tevredenheidsscore van onze community</p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="p-3 rounded-3 bg-white border border-light-subtle">
+                                <p class="mb-1 text-secondary small">Volgende stap</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="fw-semibold text-primary">Plan een check-in met je coach</span>
+                                    <a href="{{ path('app_contacts') }}" class="btn btn-sm btn-primary">Plan gesprek</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2  class="fw-semibold text-primary">Ontdek wat je direct kunt doen</h2>
+            <p  class="text-secondary mb-0">Kies één van onze tools en ervaar hoe snel je overzicht creëert.</p>
+        </div>
+        <div  class="row row-cols-1 row-cols-lg-4 g-4">
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="rounded-top bg-light d-flex align-items-center justify-content-center" style="min-height: 220px;">
+                        <img id="features" src="{{ asset('images/overview.png') }}" class="img-fluid" style="max-width: 95%; height: 180px; object-fit: contain;" alt="Overzicht illustratie">
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Alles in balans</h5>
+                        <p class="card-text text-secondary">Bekijk je inkomsten, uitgaven en trends in één dashboard en merk direct waar je kunt bijsturen.</p>
+                        <div class="mt-auto">
+                            <a href="{{ path('app_overview') }}" class="btn btn-primary w-100">Naar overzicht</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="rounded-top bg-light d-flex align-items-center justify-content-center" style="min-height: 220px;">
+                        <img src="{{ asset('images/advise.png') }}" class="img-fluid" style="max-width: 95%; height: 180px; object-fit: contain;" alt="Advies illustratie">
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Plan met experts</h5>
+                        <p class="card-text text-secondary">Gebruik onze kennisbank en plan een gesprek met een coach die meekijkt naar jouw situatie.</p>
+                        <div class="mt-auto">
+                            <a href="{{ path('app_advise') }}" class="btn btn-primary w-100">Vraag advies</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="rounded-top bg-light d-flex align-items-center justify-content-center" style="min-height: 220px;">
+                        <img src="{{ asset('images/charts.png') }}" class="img-fluid" style="max-width: 95%; height: 180px; object-fit: contain;" alt="Grafiek illustratie">
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Zie je vooruitgang</h5>
+                        <p class="card-text text-secondary">Analyseer je budget met duidelijke grafieken en ontdek patronen die je helpen beslissingen te nemen.</p>
+                        <div class="mt-auto">
+                            <a href="{{ path('app_charts') }}" class="btn btn-primary w-100">Bekijk grafieken</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="rounded-top bg-light d-flex align-items-center justify-content-center" style="min-height: 220px;">
+                        <img src="{{ asset('images/savings.png') }}" class="img-fluid" style="max-width: 95%; height: 180px; object-fit: contain;" alt="Sparen illustratie">
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Stel doelen in</h5>
+                        <p class="card-text text-secondary">Maak spaardoelen, volg ze met slimme notificaties en vier je mijlpalen.</p>
+                        <div class="mt-auto">
+                            <a href="{{ path('app_savings') }}" class="btn btn-primary w-100">Begin met sparen</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5" style="background-color: #f4f6fb;">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <div class="rounded-4 shadow-sm p-4 bg-white">
+                    <h3 class="fw-semibold text-primary">Hoe het werkt</h3>
+                    <ol class="mt-3 list-group list-group-numbered list-group-flush">
+                        <li class="list-group-item px-0">
+                            <span class="fw-semibold text-secondary">Maak je profiel aan en importeer je transacties.</span>
+                        </li>
+                        <li class="list-group-item px-0">
+                            <span class="fw-semibold text-secondary">Stel doelen, categorieën en reminders in naar jouw wensen.</span>
+                        </li>
+                        <li class="list-group-item px-0">
+                            <span class="fw-semibold text-secondary">Ontvang persoonlijke tips en volg je groei van week tot week.</span>
+                        </li>
+                    </ol>
+                    <div class="mt-4 d-flex gap-3">
+                        <a href="{{ path('app_home_alt') }}" class="btn btn-primary">Begin nu</a>
+                        <a href="{{ path('app_contacts') }}" class="btn btn-outline-primary">Neem contact op</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="p-4 rounded-4 text-white" style="background: linear-gradient(135deg, #00b4d8 0%, #48cae4 100%);">
+                    <h3 class="fw-semibold mb-3">Waarom gebruikers enthousiast zijn</h3>
+                    <div class="d-flex flex-column gap-3">
+                        <blockquote class="mb-0">
+                            <p class="mb-1">“Binnen een maand hadden we een duidelijk spaarplan voor onze vakantie.”</p>
+                            <footer class="small opacity-75">— Lisa & Karim</footer>
+                        </blockquote>
+                        <blockquote class="mb-0">
+                            <p class="mb-1">“De grafieken laten me zien waar ik kan besparen zonder in te leveren op plezier.”</p>
+                            <footer class="small opacity-75">— Thomas, student</footer>
+                        </blockquote>
+                        <blockquote class="mb-0">
+                            <p class="mb-1">“Onze coach hielp ons stap voor stap, zodat we grip houden op onze vaste lasten.”</p>
+                            <footer class="small opacity-75">— Familie Jansen</footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-7">
+                <h2 class="fw-semibold text-primary">Klaar om met vertrouwen vooruit te plannen?</h2>
+                <p class="text-secondary mb-0">Sluit je aan bij onze community en ontvang maandelijks praktische tips. Je bepaalt zelf welke inzichten je wilt ontvangen.</p>
+            </div>
+            <div class="col-lg-5">
+                <form class="bg-light rounded-4 p-4 shadow-sm">
+                    <label for="newsletterEmail" class="form-label fw-semibold text-secondary">Schrijf je in voor de nieuwsbrief</label>
+                    <div class="input-group">
+                        <input type="email" class="form-control" id="newsletterEmail" placeholder="naam@voorbeeld.nl">
+                        <button class="btn btn-primary" type="button">Inschrijven</button>
+                    </div>
+                    <div class="form-text text-secondary mt-2">Geen spam, alleen relevante tips en verhalen.</div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

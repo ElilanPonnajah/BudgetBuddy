@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    {% block stylesheets %}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    {% endblock %}
+
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {% endblock %}
+</head>
+<body>
+{% block nav %}
+    <header class="shadow-sm" style="position: sticky; top: 0; left: 0; right: 0; z-index: 1000;">
+        <nav class="navbar navbar-expand-lg navbar-dark"
+             style="background: linear-gradient(135deg, #512da8 0%, #6a3fd5 60%, #8362ff 100%);">
+            <div class="container py-2">
+                <a class="navbar-brand fw-bold" href="{{ path("app_home_alt") }}">Budget Buddy</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                        aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-lg-center" id="mainNav">
+                    <ul class="navbar-nav align-items-lg-center gap-lg-2 ms-lg-4 text-center py-3 py-lg-0">
+                        <li class="nav-item">
+                            <a href="{{ path("app_overview") }}"
+                               class="nav-link px-3 py-2 rounded-pill fw-semibold {{ app.request.attributes.get('_route') == 'app_overview' ? 'bg-white text-primary shadow-sm' : 'text-white-50 text-uppercase small' }}">Overzicht</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ path("app_advise") }}"
+                               class="nav-link px-3 py-2 rounded-pill fw-semibold {{ app.request.attributes.get('_route') == 'app_advise' ? 'bg-white text-primary shadow-sm' : 'text-white-50 text-uppercase small' }}">Advies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path("app_savings") }}"
+                               class="nav-link px-3 py-2 rounded-pill fw-semibold {{ app.request.attributes.get('_route') == 'app_savings' ? 'bg-white text-primary shadow-sm' : 'text-white-50 text-uppercase small' }}">Sparen</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path("app_charts") }}"
+                               class="nav-link px-3 py-2 rounded-pill fw-semibold {{ app.request.attributes.get('_route') == 'app_charts' ? 'bg-white text-primary shadow-sm' : 'text-white-50 text-uppercase small' }}">Grafiek</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path("app_about_us") }}"
+                               class="nav-link px-3 py-2 rounded-pill fw-semibold {{ app.request.attributes.get('_route') == 'app_about_us' ? 'bg-white text-primary shadow-sm' : 'text-white-50 text-uppercase small' }}">Over
+                                ons</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ path("app_contacts") }}"
+                               class="nav-link px-3 py-2 rounded-pill fw-semibold {{ app.request.attributes.get('_route') == 'app_contacts' ? 'bg-white text-primary shadow-sm' : 'text-white-50 text-uppercase small' }}">Contact</a>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+{% endblock %}
+
+{% block body %}
+
+
+{% endblock %}
+{% block footer %}
+
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <p class="col-md-4 mb-0 text-body-secondary">© 2025 Budget Buddy</p>
+            <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none" aria-label="Bootstrap">
+                <svg class="bi me-2" width="40" height="32" aria-hidden="true">
+                    <use href="#bootstrap"></use>
+                </svg>
+            </a>
+            <ul class="nav col-md-4 justify-content-end">
+                <li class="nav-item"><a href="{{ path('app_home_alt') }}" class="nav-link px-2 text-body-secondary">Home</a></li>
+                <li class="nav-item"><a href="#features" class="nav-link px-2 text-body-secondary">Features</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+                <li class="nav-item"><a href="{{ path('app_about_us') }}" class="nav-link px-2 text-body-secondary">About us</a></li>
+                <li class="nav-item"><a href="{{ path('app_contacts') }}" class="nav-link px-2 text-body-secondary">Contact</a></li>
+            </ul>
+        </footer>
+    </div>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,257 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Over ons{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('contact-form');
+            if (!form) {
+                return;
+            }const fields = form.querySelectorAll('input, textarea');
+            const resetValidationState = () => {
+                form.classList.remove('was-validated');
+                fields.forEach((field) => {
+                    field.classList.remove('is-invalid', 'is-valid');
+                });
+            };
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                form.classList.add('was-validated');
+
+                if (!form.checkValidity()) {
+                    event.stopPropagation();
+                    return;
+                }
+
+                form.reset();
+                resetValidationState();
+            });
+
+            fields.forEach((field) => {
+                field.addEventListener('input', () => {
+                    if (!form.classList.contains('was-validated')) {
+                        return;
+                    }
+
+                    if (field.checkValidity()) {
+                        field.classList.remove('is-invalid');
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-5">
+                    <h1 class="fw-bold text-primary">Problemen of vragen?</h1>
+                    <h3 class="fw-bold text-primary">Neem contact op met onze klantenservice.</h3>
+                    <p class="mt-3 text-secondary">
+                        Budget Buddy helpt gezinnen en studenten om grip te krijgen op hun geldzaken.
+                        Met onze digitale tools, persoonlijke begeleiding en transparante inzichten geven we
+                        iedereen de mogelijkheid om verantwoord te groeien.
+                    </p>
+                    <p class="text-secondary">
+                        We geloven dat slimme keuzes beginnen met heldere informatie. Daarom combineren we
+                        data, deskundigheid en een mensgerichte aanpak om jouw financiële toekomst
+                        sterker te maken.
+                    </p>
+                </div>
+                <div class="col-lg-7">
+                    <img src="{{ asset('images/customer-service.png') }}" alt="Budget Buddy team in overleg" class="img-fluid rounded-4 shadow-sm">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-5 glass-section">
+        <div class="container text-light">
+            <div class="row">
+
+                <div class="col-lg-8">
+                    <div class="glass-panel glass-panel--light p-4 p-lg-5 h-100">
+                        <h3 class="fw-semibold text-primary mb-4">Stuur ons een bericht</h3>
+                        <form id="contact-form" action="" class="row needs-validation" novalidate>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="firstname" class="form-label">Voornaam</label>
+                                <input type="text" class="form-control" id="firstname" placeholder="Voornaam" required></input>
+                                <div class="invalid-feedback">
+                                    Voer je voornaam in.
+                                </div>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="lastname" class="form-label">Achternaam</label>
+                                <input type="text" class="form-control" id="lastname" placeholder="Voornaam" required></input>
+                                <div class="invalid-feedback">
+                                    Voer je achternaam in.
+                                </div>
+                            </div>
+                            <div class="mb-3 col-md-12">
+                                <label for="email" class="form-label">E-mail</label>
+                                <input type="email" class="form-control" id="email" placeholder="johannes@example.com" required>
+                                <div class="invalid-feedback">
+                                    Voer een geldig e-mailadres in.
+                                </div>
+                            </div>
+                            <div class="mb-3 col-md-12">
+                                <label for="message" class="form-label">Bericht</label>
+                                <textarea class="form-control" id="message" rows="6" required></textarea>
+                                <div class="invalid-feedback">
+                                    Voer een bericht in.
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary w-100">Verstuur</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="col-lg-4">
+                    <div class="glass-panel glass-panel--dark p-4 p-lg-5 h-100">
+                        <h3 class="text-white mb-4">Informatie</h3>
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item bg-transparent border-0 px-0 text-white">
+                                <div class="d-flex w-100 justify-content-between align-items-start">
+                                    <h5 class="mb-2">Telefoonnummer</h5>
+                                </div>
+                                <p class="mb-2 fs-5 fw-semibold">(+31) 070 123 45 67</p>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <button class="btn btn-light text-primary" onclick="window.location.href='tel:+310701234567'">Bel direct</button>
+                                </div>
+                                <small class="d-block mt-2 text-white-50">Bereikbaar van 9:00 tot 17:00</small>
+                                <small class="d-block text-white-50">Let op: Gesprekskosten kunnen door je provider worden gerekend.</small>
+                            </div>
+                            <div class="list-group-item bg-transparent border-0 px-0 text-white">
+                                <div class="d-flex w-100 justify-content-between align-items-start">
+                                    <h5 class="mb-2">Hoofdkantoor</h5>
+                                </div>
+                                <p class="mb-2">Schedeldoekshaven 506<br>2511 EP Den Haag</p>
+                                <a href="https://www.google.com/maps/place/Schedeldoekshaven+506,+2511+EP+Den+Haag" class="btn btn-light text-primary">Bekijk route</a>
+                                <small class="d-block mt-2 text-white-50">Open van maandag t/m donderdag van 9:00 tot 17:00.</small>
+                            </div>
+                            <div class="list-group-item bg-transparent border-0 px-0 text-white">
+                                <div class="d-flex w-100 justify-content-between align-items-start">
+                                    <h5 class="mb-2">E-mailadres</h5>
+                                </div>
+                                <p class="mb-2">info@budgetbuddy.nl</p>
+                                <a href="mailto:info@budgetbuddy.nl?subject=Contact%20via%20website" class="btn btn-light text-primary">Stuur een e-mail</a>
+                                <small class="d-block mt-2 text-white-50">We reageren op alle e-mails binnen 1-2 werkdagen.</small>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="">
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-12">
+                    <h3 class="fw-semibold text-primary mb-3">Route naar ons kantoor</h3>
+                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+                        <iframe
+                                src="https://maps.google.com/maps?f=d&source=s_d&saddr=Den+Haag+Centraal&daddr=Schedeldoekshaven+506,+Den+Haag&hl=nl&geocode=&mra=lsi&ie=UTF8&z=14&output=embed"
+                                allowfullscreen
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                    </div>
+                    <a class="d-inline-block mt-2" href="https://maps.google.com/maps?f=d&source=s_d&saddr=Den+Haag+Centraal&daddr=Schedeldoekshaven+506,+Den+Haag&hl=nl&geocode=&mra=lsi&ie=UTF8&z=14" target="_blank" rel="noopener">
+                        Bekijk route in Google Maps
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-5 glass-section" >
+        <div class="container position-relative">
+            <div class="row gy-5 align-items-start">
+                <div class="col-lg-5">
+                    <div class="bg-white rounded-4 shadow-lg p-4 p-lg-5">
+                        <span class="text-uppercase fw-semibold small" style="color: #6a3fd5;">Servicehub</span>
+                        <h3 class="fw-bold text-primary mt-2 mb-3">Volg je aanvraag van start tot oplossing</h3>
+                        <p class="text-secondary mb-4">Onze specialisten koppelen je vraag aan een persoonlijk ticket. Zo weet je precies wanneer je antwoord kunt verwachten.</p>
+                        <div class="d-flex flex-column gap-3">
+                            <div class="d-flex align-items-start gap-3">
+                                <span class="badge fs-6 rounded-circle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background-color: rgba(81, 45, 168, 0.12); color: #512da8;">01</span>
+                                <div>
+                                    <h6 class="mb-1 text-primary">Ticket aangemaakt</h6>
+                                    <p class="mb-0 text-secondary small">We sturen binnen 10 minuten een bevestiging met jouw referentienummer.</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-start gap-3">
+                                <span class="badge fs-6 rounded-circle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background-color: rgba(106, 63, 213, 0.12); color: #6a3fd5;">02</span>
+                                <div>
+                                    <h6 class="mb-1 text-primary">Expert toegewezen</h6>
+                                    <p class="mb-0 text-secondary small">Een klantenadviseur neemt jouw dossier door en plant indien nodig een call.</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-start gap-3">
+                                <span class="badge fs-6 rounded-circle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background-color: rgba(131, 98, 255, 0.12); color: #8362ff;">03</span>
+                                <div>
+                                    <h6 class="mb-1 text-primary">Opgelost & feedback</h6>
+                                    <p class="mb-0 text-secondary small">Je ontvangt een samenvatting van onze oplossing en ruimte om feedback te delen.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class=" glass-panel glass-panel--dark rounded-4 border border-white border-opacity-25 p-4 p-lg-5 text-white position-relative overflow-hidden" >
+                        <div class="row gy-4">
+                            <div class="col-md-6">
+                                <h4 class="fw-semibold text-white">Service radar</h4>
+                                <ul class="list-unstyled text-white-50 small mb-0">
+                                    <li class="mb-3">
+                                        <span class="d-block fw-semibold text-white">Gemiddelde wachttijd</span>
+                                        <span>Telefonisch: 2 minuten · E-mail: 1 werkdag</span>
+                                    </li>
+                                    <li class="mb-3">
+                                        <span class="d-block fw-semibold text-white">Beschikbare slots</span>
+                                        <span>Videogesprekken elke dinsdag en donderdag.</span>
+                                    </li>
+                                    <li>
+                                        <span class="d-block fw-semibold text-white">Urgente vragen</span>
+                                        <span>Gebruik ons noodnummer op werkdagen na 17:00.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="fw-semibold text-white">Kies je kanaal</h4>
+                                <div class="d-flex flex-column gap-3">
+                                    <div class="bg-white bg-opacity-10 rounded-3 p-3">
+                                        <span class="d-block text-white-50 text-uppercase small">Chat & berichten</span>
+                                        <span class="d-block fw-semibold text-white">Start een chat via WhatsApp</span>
+                                        <a href="https://wa.me/31701234567" class="link-light small text-decoration-none">Open WhatsApp-web</a>
+                                    </div>
+                                    <div class="bg-white bg-opacity-10 rounded-3 p-3">
+                                        <span class="d-block text-white-50 text-uppercase small">Persoonlijk overleg</span>
+                                        <span class="d-block fw-semibold text-white">Plan een videogesprek van 30 minuten</span>
+                                        <a href="mailto:info@budgetbuddy.nl?subject=Videogesprek%20inplannen" class="link-light small text-decoration-none">Vraag direct een tijdslot aan</a>
+                                    </div>
+                                    <div class="bg-white bg-opacity-10 rounded-3 p-3">
+                                        <span class="d-block text-white-50 text-uppercase small">Updates</span>
+                                        <span class="d-block fw-semibold text-white">Ontvang statusmeldingen per sms</span>
+                                        <span class="small text-white-50">Stuur "STATUS" naar 070 123 45 67</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+

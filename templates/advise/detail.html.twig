@@ -1,0 +1,226 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdviseController!{% endblock %}
+
+{% block body %}
+    <style>
+
+        .user-header {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: {% if users %}
+                    flex-start;
+        {% else %}
+            center;
+        {% endif %};
+            gap: 1rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            scroll-behavior: smooth;
+            overflow-x: auto;
+
+        %}
+        .user-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .user-pic:hover {
+            border-color: #0d6efd;
+            transform: scale(1.05);
+        }
+    </style>
+
+    <div class="container">
+        <h1 class="text-center">Advies over je budget</h1>
+
+
+        <header class="pt-3">
+            <h2>Gebruikers</h2>
+            <div class="user-header">
+                {% if users %}
+
+                    {% for user in users %}
+                        <div class=" d-flex flex-column align-items-center">
+                            <a href="{{ path('app_advise_detail', {'id': user.id}) }}">
+                                <img src="{{ user.imgUrl }}" alt="{{ user.firstName }}" class="user-pic" data-bs-toggle="modal" data-bs-target="#user{{ user.id }}Modal">
+                            </a>
+                            <h5>{{ user.firstName }} {{ user.lastName }}</h5>
+                        </div>
+                    {% endfor %}
+                    <div class="d-flex flex-column align-items-center" style="min-width: 100px;">
+                        <a href="{{ path('app_overview_add') }}">
+                            <div class="user-pic d-flex align-items-center justify-content-center bg-primary bg-opacity-10" style="border: 2px dashed #0d6efd; width: 100px; height: 100px;">
+                                <i class="bi bi-plus-circle text-primary" style="font-size: 2.8rem;"></i>
+                            </div>
+                        </a>
+
+                        <h5 class="mt-2" style="font-size: 1.1rem;">Toevoegen</h5>
+                    </div>
+
+                {% else %}
+                    <div class="d-flex flex-column align-items-center">
+                        <p>No users found.</p>
+                        <a href="{{ path('app_overview_add') }}" class="btn btn-primary">Add user</a>
+                    </div>
+
+                {% endif %}
+            </div>
+
+        </header>
+        <main class="row gap-3">
+            <h2>Rapport van {{ user.firstName }} {{ user.lastName }}</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Soort</th>
+                    <th scope="col">Bedrag</th>
+                </tr>
+
+                <tr>
+                    <td>Totale Inkomsten</td>
+                    {% set income = 0 %}
+                    {% for transaction in user.transactions %}
+                        {% if transaction.amount > 0 %}
+                            {% set income = income + transaction.amount %}
+                        {% endif %}
+                    {% endfor %}
+                    <td>{{ income |format_currency('EUR', {rounding_mode: 'floor'}) }}</td>
+                </tr>
+                <tr>
+                    <td>Totale Uitgaven</td>
+                    {% set expenses = 0 %}
+                    {% for transaction in user.transactions %}
+                        {% if transaction.amount < 0  %}
+                            {% set expenses = expenses + transaction.amount %}
+                        {% endif %}
+                    {% endfor %}
+                    <td>{{ expenses |format_currency('EUR', {rounding_mode: 'floor'}) }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Budget</strong></td>
+                    {% set budget = 0 %}
+                    {% for transaction in user.transactions %}
+                            {% set budget = budget + transaction.amount %}
+                    {% endfor %}
+                    <td><strong class="{% if budget > 0 %}text-success{% elseif budget < 0 %}text-danger{% elseif budget == 0 and user.transactions is empty %}text-secondary{% else %}text-warning{% endif %}">{{ budget |format_currency('EUR', {rounding_mode: 'floor'}) }}</strong></td>
+                </tr>
+                </thead>
+            </table>
+
+            <div class="row gap-3">
+                <h2>Persoonlijk Advies</h2>
+                <h4>Beste {{ user.firstName }},</h4>
+                {% if budget < 0 %}
+                    <h5>Je hebt een negatief budget, hier zijn wat tips om je verder te helpen:</h5>
+                    <div class="card border-danger">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h5>Maak lijst van vaste lasten</h5>
+                            </div>
+                            <div class="card-text">
+                                “Let op, je geeft nu meer uit dan je verdient — dat is lastig vol te houden. Begin met één snelle check: schrijf alle vaste lasten op (huur, internet, abonnementen) en bekijk welke je tijdelijk of permanent kunt stopzetten. Zo creëer je ruimte.”
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-danger">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h5>Stel limiet voor “leuke dingen”</h5>
+                            </div>
+                            <div class="card-text">
+                                “Oké, het is nu wat krap: stel een limiet in voor leuke dingen zoals uitgaan, shoppen of eten bestellen. Bijvoorbeeld: ‘Maximaal €30 verdeeld over vier weken’. Zo houd je controle en voorkom je dat je na een week al ‘op’ bent.”                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-danger ">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h5>Start een mini-noodfonds</h5>
+                            </div>
+                            <div class="card-text">
+                                “En nu écht: maak een mini-noodfonds van bijvoorbeeld €50, door elke week €2–€3 opzij te zetten als het lukt. Zo bouw je gevoel van controle op. En als je ziet dat het lukt: beloon jezelf een kleine keer (zonder de bank te plunderen) — zo hou je het vol.”                            </div>
+                        </div>
+                    </div>
+                {% elseif budget > 0 %}
+                        <h5>Je hebt een positief budget, hier zijn wat tips om je geld te beheren:</h5>
+                        <div class="card border-success ">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h5>Spaar voor noodgevallen</h5>
+                                </div>
+                                <div class="card-text">
+                                    “Top dat je meer binnenkrijgt dan je uitgeeft — dat geeft rust. Probeer elke maand bijvoorbeeld €20 apart te zetten voor onverwachte kosten (een kapotte telefoon, fietspech). Zo bouw je stap voor stap een buffer op.”
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-success">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h5>Automatisch sparen instellen</h5>
+                                </div>
+                                <div class="card-text">
+                                    “Je zit vrij goed financieel. Maak nu van sparen een gewoonte: kies bijvoorbeeld één vaste dag per maand waarop je een bedrag overzet naar een spaarrekening of belegt iets kleins. Zo verloopt het automatisch zonder dat je er steeds aan moet denken.”
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-success">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h5>Check je abonnementen</h5>
+                                </div>
+                                <div class="card-text">
+                                    “Nu je wat extra ruimte hebt, kun je eens kritisch kijken naar je abonnementen of vaste lasten: heb je echt alles nodig? Als je daar één kleine kostenpost ziet — stop ‘m of downgrade ‘m — dan houd je die positieve lijn makkelijker vast.”
+                                </div>
+                            </div>
+                        </div>
+                {% else %}
+                    {% if user.transactions is empty %}
+                        <p>Je hebt nog geen transacties gemaakt. Ga naar <a href="{{ path('app_overview_add') }}">Overzicht</a> om te beginnen met je budget.</p>
+                    {% else %}
+                        <h5>Je hebt een neutraal budget, hier zijn wat tips om een positieve budget te bouwen:</h5>
+
+                        <div class="card border-secondary">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h5>Begin met mini-spaardoel</h5>
+                                </div>
+                                <div class="card-text">
+                                    “Je loopt precies rond — er is geen groot overschot, maar ook niet per se een groot tekort. Maar let op: als er iets onverwachts gebeurt, zit je meteen in de min. Zet een klein spaardoel: bijvoorbeeld ‘minstens €5 per week wegleggen’. Kleine stap = grote impact.”                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-secondary">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h5>Scan je vaste kosten</h5>
+                                </div>
+                                <div class="card-text">
+                                    “Dus je bent redelijk in balans — maar probeer het iets makkelijker te maken voor jezelf door je uitgaven onder de loep te nemen: welke vaste kosten gebeuren automatisch en zou je kunnen verlagen? Bijvoorbeeld streaming-diensten, databundel, lidmaatschap sportschool.”
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card border-secondary">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h5>Stel categorie-budgetten in</h5>
+                                </div>
+                                <div class="card-text">
+                                    “Gebruik deze situatie als kans: stel een budget in per categorie (eten & drinken, uitgaan, abonnementen). Zo zie je direct of je meer uitgeeft dan gepland, en kun je bijsturen voordat het uit de hand loopt.”
+                                </div>
+                            </div>
+                            </div>
+                    {% endif %}
+
+
+                {% endif %}
+            </div>
+
+
+        </main>
+
+    </div>
+{% endblock %}

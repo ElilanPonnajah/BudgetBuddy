@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Transactie details{% endblock %}
+
+{% block body %}
+    <div class="container py-4">
+        {% set is_income = (transaction.amount + 0) > 0 %}
+
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <div class="d-flex align-items-center mb-3">
+                    <a href="{{ path('user_detail' , {'id': user.id}) }}" class="text-decoration-none">
+                        <i class="bi bi-arrow-left"></i> Terug naar overzicht
+                    </a>
+                </div>
+
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center"
+                                 style="width: 64px; height: 64px; border: 2px solid {{ is_income ? '#198754' : '#dc3545' }};">
+                                <i class="bi {{ is_income ? 'bi-plus-lg text-success' : 'bi-dash text-danger' }}" style="font-size: 2rem"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h3 class="mb-0">{{ transaction.description }}</h3>
+                                <div class="text-muted small">Transactie ID: #{{ transaction.id }}</div>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold {{ is_income ? 'text-success' : 'text-danger' }}" style="font-size: 1.75rem">
+                                    {{ transaction.amount | format_currency('EUR', {rounding_mode: 'floor'}) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <div class="d-flex align-items-center gap-2">
+                                    {% if transaction.category and transaction.category.icon %}
+                                        <i class="{{ transaction.category.icon }} text-secondary" style="font-size: 1.5rem"></i>
+                                    {% endif %}
+                                    <div>
+                                        <div class="text-muted small">Categorie</div>
+                                        <div class="fw-semibold">
+                                            <span class="badge bg-light text-dark border">
+                                                {{ transaction.category ? transaction.category.name : 'Onbekend' }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div>
+                                    <div class="text-muted small">Type</div>
+                                    <div>
+                                        <span class="badge {{ is_income ? 'bg-success' : 'bg-danger' }}">
+                                            {{ is_income ? 'Inkomen' : 'Uitgave' }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div>
+                                    <div class="text-muted small">Datum en tijd</div>
+                                    <div class="fw-semibold">{{ transaction.transactionDate|date('d-m-Y H:i') }}</div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div>
+                                    <div class="text-muted small">Gebruiker</div>
+                                    <div class="fw-semibold">{{ user.firstName }} {{ user.lastName }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% if transaction.description %}
+                            <div class="mt-4">
+                                <div class="text-muted small">Omschrijving</div>
+                                <p class="mb-0">{{ transaction.description }}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer bg-white d-flex justify-content-between">
+                        <a class="btn btn-outline-secondary" href="{{ path('user_detail' , {'id': user.id}) }}">
+                            <i class="bi bi-arrow-left"></i> Terug
+                        </a>
+                        <div class="">
+                            <a href="{{ path('transaction_edit', {'id': transaction.id , 'userId': user.id}) }}" class="btn btn-warning">
+                                Wijzig Transactie
+                            </a>
+                            <a class="btn btn-danger" href="{{ path('transaction_delete', {'id': transaction.id , 'userId': user.id}) }}">
+                                Verwijder Transactie
+                            </a>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Delete Category{% endblock %}
+
+{% block body %}
+<style>
+    .category-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .category-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-width: 100px;
+        width: fit-content;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        text-decoration: none;
+        color: #333;
+        background-color: #f9f9f9;
+        transition: 0.2s;
+    }
+
+    .category-item:hover {
+        background-color: #ffecec;
+        border-color: #ff7b7b;
+    }
+
+    .category-icon {
+        font-size: 2rem;
+        margin-bottom: 5px;
+    }
+</style>
+
+<div class="container">
+    <h2>User Categories</h2>
+    <div class="category-grid">
+        {% for category in custom_categories %}
+            <a href="{{ path('category_edit', { id: category.id, userId: user.id }) }}"
+               class="category-item">
+                <i class="{{ category.icon }} category-icon"></i>
+                <span>{{ category.name }}</span>
+            </a>
+        {% else %}
+            <p>No custom categories found.</p>
+        {% endfor %}
+    </div>
+
+    <h2>Default Categories</h2>
+    <div class="category-grid">
+        {% for category in default_categories %}
+            <a href="{{ path('category_edit', { id: category.id, userId: user.id }) }}"
+               class="category-item">
+                <i class="{{ category.icon }} category-icon"></i>
+                <span>{{ category.name }}</span>
+            </a>
+        {% else %}
+            <p>No default categories found.</p>
+        {% endfor %}
+    </div>
+    <a href="{{ path('app_overview') }}" class="btn btn-primary">Back to Overview</a>
+</div>
+
+
+{% endblock %}
+
